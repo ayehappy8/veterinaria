@@ -3,14 +3,20 @@ import java.util.Scanner;
 import java.io.*;
 public class  mainV{
 public static void main(String[] args) {
-    creadorDeArchivo("juanismoDocumento");
-    eleminadorDeArchivo("juanismoDocumento");
+    String juanismoDocumento= "juanismoDocumento";
+    creadorDeArchivo(juanismoDocumento);
+    //eleminadorDeArchivo("juanismoDocumento");
     Scanner sc = new Scanner(System.in);
     String nombreCliente;
+    String nombreMascota;
     System.out.println("escriba su nombre");
     nombreCliente = sc.next();
     try {
-    File archivo = new File("paqueteV/datos/datosClinete.txt");
+    FileWriter escritor = new FileWriter("paqueteV/datos/" + juanismoDocumento + ".txt");
+        escritor.append(nombreCliente);
+        escritor.close();
+        System.out.println("ha terminado de escribir");
+
         }catch (Exception e) {
             System.out.println("Error");
         }
@@ -40,3 +46,4 @@ public static void eleminadorDeArchivo(String nombre){
             }
 }
 }
+
