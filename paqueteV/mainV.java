@@ -1,23 +1,33 @@
 package paqueteV;
 
 import java.util.Scanner;
+
+
 import java.io.*;
 public class  mainV{
 public static void main(String[] args) {
     String clientes= "clientes";
     creadorDeArchivo(clientes);
+    
     //eleminadorDeArchivo("clientes");
     Scanner sc = new Scanner(System.in);
     String nombreCliente;
     String nombreMascota;
-    System.out.println("escriba su nombre");
-    nombreCliente = sc.next();
+    String aux;
+    
+    System.out.println("escriba el nombre de la mascota");
+    nombreMascota = sc.next();
+
+    mascotas mascota = new mascotas(nombreMascota);
+    System.out.println(mascota.toString());
+    
 
     //escritura
 
-    try {
+    try { 
     FileWriter escritor = new FileWriter("paqueteV/datos/" + clientes + ".txt",true);
-        escritor.append(nombreCliente);
+    
+        escritor.append(mascota.toString());
         escritor.close();
         System.out.println("ha terminado de escribir");
 

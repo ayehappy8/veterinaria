@@ -15,8 +15,8 @@ private String nombre;
     public String toString() {
         String n;
         n = this.nombre;
-        n = n + ",";
+        n = n + ";";
 
-        return super.toString();
+        return n;
     }
 }
