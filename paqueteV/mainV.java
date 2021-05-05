@@ -7,30 +7,54 @@ import java.io.*;
 public class  mainV{
 public static void main(String[] args) {
     String clientes= "clientes";
+    String mascotas = "mascotas";
+    creadorDeArchivo(mascotas);
     creadorDeArchivo(clientes);
-    
     //eleminadorDeArchivo("clientes");
     Scanner sc = new Scanner(System.in);
-    String nombreCliente;
-    String nombreMascota;
-    String aux;
-    
+    //datos cliente
+    System.out.println("escriba su nombre");
+    String nombreC = sc.next();
+    System.out.println("escriba su apellido ");
+    String apellido = sc.next();
+    System.out.println("escriba su telefono");
+    int telefono = sc.nextInt();
+    System.out.println("escriba su direccion ");
+    String direccion = sc.next();
+    System.out.println("escriba su email ");
+    String email = sc.next();
+    //datos cliente
+    cliente cliente = new cliente(nombreC, apellido, telefono, direccion, email);
+    //datos mascota
+    Scanner scN = new Scanner(System.in);
     System.out.println("escriba el nombre de la mascota");
-    nombreMascota = sc.next();
+    String nombreM = scN.next();
+    System.out.println("escriba el sexo de " + nombreM);
+    String sexo = scN.next();
+    System.out.println("escriba la edad de " + nombreM);
+    int edad = scN.nextInt();
+    System.out.println("escriba la especie de " + nombreM);
+    String especie = scN.next();
+    System.out.println("escriba la raza de " + nombreM);
+    String raza = scN.next();
+    //datos mascota
+    mascota mascota = new mascota (nombreM,sexo,edad,especie,raza);
 
-    mascotas mascota = new mascotas(nombreMascota);
-    System.out.println(mascota.toString());
+    
     
 
     //escritura
 
     try { 
-    FileWriter escritor = new FileWriter("paqueteV/datos/" + clientes + ".txt",true);
+    FileWriter escritorMascotas = new FileWriter("paqueteV/datos/" + mascotas + ".txt",true);
     
-        escritor.append(mascota.toString());
-        escritor.close();
-        System.out.println("ha terminado de escribir");
-
+        escritorMascotas.append(mascota.toString());
+        escritorMascotas.close();
+        System.out.println("ha terminado de escribir "+ mascotas);
+    FileWriter escritorClientes = new FileWriter("paqueteV/datos/" + clientes + ".txt",true);    
+        escritorClientes.append(cliente.toString());
+        escritorClientes.close();
+        System.out.println("ha terminado de escribir " + clientes);
         }catch (Exception e) {
             System.out.println("Error");
             
@@ -39,14 +63,24 @@ public static void main(String[] args) {
  // lectura  
 
     try {
-        File archivo = new File("paqueteV/datos/" + clientes + ".txt");
-        Scanner lector = new Scanner(archivo);
+        File archivoM = new File("paqueteV/datos/" + mascotas + ".txt");
+        Scanner lectorM = new Scanner(archivoM);
 
-        while(lector.hasNextLine()){
-            String linea = lector.nextLine();
+        while(lectorM.hasNextLine()){
+            String linea = lectorM.nextLine();
+            System.out.println("datos mascotas");
             System.out.println(linea);
         }
-        lector.close();
+        lectorM.close();
+        File archivoC = new File("paqueteV/datos/" + clientes + ".txt");
+        Scanner lectorC = new Scanner(archivoC);
+
+        while(lectorC.hasNextLine()){
+            String linea = lectorC.nextLine();
+            System.out.println("clientes");
+            System.out.println(linea);
+        }
+        lectorC.close();
         
     } catch (FileNotFoundException e) {
         System.out.println("Error al leer el");
@@ -74,9 +108,10 @@ public static void eleminadorDeArchivo(String nombre){
             System.out.println("El archivo no existe");
         }
             }catch (Exception e) {
-                System.out.println("Hubo un error en la creacion");
+                System.out.println("Hubo un error en la eliminacion");
             }
 }
+    
 }
 
 
