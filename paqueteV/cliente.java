@@ -1,12 +1,12 @@
 package paqueteV;
-public class cliente{
+public class Cliente{
 private String nombre;
 private String apellido;
 private int telefono;
 private String direccion;
 private String email;
 
-public cliente(String nombre,String apellido,int telefono,String direccion,String email){
+public Cliente(String nombre,String apellido,int telefono,String direccion,String email){
     this.nombre = nombre;
     this.apellido = apellido;
     this.telefono = telefono;

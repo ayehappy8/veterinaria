@@ -1,6 +1,6 @@
 package paqueteV;
 
-public class mascota {
+public class Mascota{
 
 private String nombre;
 private String sexo;
@@ -8,7 +8,7 @@ private int edad;
 private String especie;
 private String raza;
 
-    public mascota(String nombre, String sexo, int edad, String especie, String raza){
+    public  Mascota(String nombre, String sexo, int edad, String especie, String raza){
         this.nombre = nombre;
         this.sexo = sexo;
         this.edad = edad;
