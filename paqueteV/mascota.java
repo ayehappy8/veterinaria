@@ -46,12 +46,6 @@ private String raza;
         this.raza = c;
     }
 
-
-
-
-
-
-    @Override
     public String toString() {
         String n;
         n = this.nombre;
@@ -63,7 +57,7 @@ private String raza;
         n= n + this.especie;
         n = n + ",";
         n= n + this.raza;
-        n = n + ";";
+        n = n + ";\n";
 
         return n;
     }

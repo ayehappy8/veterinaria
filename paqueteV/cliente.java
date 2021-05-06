@@ -56,7 +56,7 @@ public void setEmail(String c){
         n= n + this.direccion;
         n = n + ",";
         n= n + this.email;
-        n = n + ";";
+        n = n + ";\n";
 
         return n;
     }
