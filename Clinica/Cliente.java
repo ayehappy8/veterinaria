@@ -1,17 +1,30 @@
-package paqueteV;
+package Clinica;
 public class Cliente{
 private String nombre;
 private String apellido;
 private int telefono;
 private String direccion;
 private String email;
-
+private Mascota[] mascotas;
 public Cliente(String nombre,String apellido,int telefono,String direccion,String email){
     this.nombre = nombre;
     this.apellido = apellido;
     this.telefono = telefono;
     this.direccion = direccion;
     this.email = email;
+}
+public void CantMascotas(int cant){
+    mascotas = new Mascota[cant];
+}
+public int getCantMascotas(){
+    if(this.mascotas != null) return this.mascotas.length;
+    else return -1;
+}
+public void setMascota(Mascota ingresando, int posicion){
+    this.mascotas[posicion] = ingresando;
+}
+public Mascota getMascota(int posicion){
+    return this.mascotas[posicion];
 }
 public String getNombre(){
     return this.nombre;
@@ -57,7 +70,6 @@ public void setEmail(String c){
         n = n + ",";
         n= n + this.email;
         n = n + ";\n";
-
         return n;
     }
 
