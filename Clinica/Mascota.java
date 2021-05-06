@@ -1,19 +1,25 @@
-package paqueteV;
+package Clinica;
 
-public class mascota {
-
+public class Mascota{
+private String dueno;
 private String nombre;
 private String sexo;
 private int edad;
 private String especie;
 private String raza;
-
-    public mascota(String nombre, String sexo, int edad, String especie, String raza){
+    public Mascota(String dueno, String nombre, String sexo, int edad, String especie, String raza){
+        this.dueno = dueno;
         this.nombre = nombre;
         this.sexo = sexo;
         this.edad = edad;
         this.especie = especie;
         this.raza = raza;
+    }
+    public String getDueno() {
+        return this.dueno;
+    }
+    public void setDueno(String c) {
+        this.dueno = c;
     }
     public String getNombre(){
         return this.nombre;
@@ -46,12 +52,6 @@ private String raza;
         this.raza = c;
     }
 
-
-
-
-
-
-    @Override
     public String toString() {
         String n;
         n = this.nombre;
@@ -63,7 +63,7 @@ private String raza;
         n= n + this.especie;
         n = n + ",";
         n= n + this.raza;
-        n = n + ";";
+        n = n + ";\n";
 
         return n;
     }

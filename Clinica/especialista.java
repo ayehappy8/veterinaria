@@ -1,4 +1,4 @@
-package paqueteV;
+package Clinica;
 
 public class especialista {
     
