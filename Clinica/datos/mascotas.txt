@@ -1,0 +1,2 @@
+perro,hembra,4,kiltro,perro;
+titulo,macho,6,tiburon,blanco;
