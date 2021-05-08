@@ -1,1 +1,0 @@
-juan,hombre,3,gato,docbiler;kemchi,hembra,6,perro,kiltro;
