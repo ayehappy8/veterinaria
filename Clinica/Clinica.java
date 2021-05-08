@@ -58,7 +58,7 @@ public class Clinica{
     public static int menu(){
         System.out.println("*********BIENVENIDO A CLINICA VETERINARIA ICINF**********");
         System.out.println("Donde si no pagas, tu perro muere...");
-        System.out.println("\n Escoja una opción");
+        System.out.println("\n Escoja una opciï¿½n");
         System.out.println("1: Ingresar como cliente");
         System.out.println("2: Ver clientes");
         System.out.println("3: Ver mascotas");
