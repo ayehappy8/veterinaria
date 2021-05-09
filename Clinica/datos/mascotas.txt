@@ -1,0 +1,4 @@
+<<<<<<< Updated upstream
+=======
+perro,hembra,4,kiltro,perro;
+>>>>>>> Stashed changes
