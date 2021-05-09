@@ -4,8 +4,8 @@ import java.io.*;
 public class Clinica{
     private static File archivoM = creadorDeArchivo("mascotas");
     private static File archivoC = creadorDeArchivo("clientes");
-    static Scanner sc = new Scanner(System.in);
-    public static void main(String[] args) {
+    static Scanner sc = new Scanner(System.in); 
+    public static void main(String[] args) { 
         //eleminadorDeArchivo("clientes");
         boolean salir = false;
         do{
@@ -43,9 +43,11 @@ public class Clinica{
                     }
                     // lectura  
                 break;
-                case 2: mostrarClientes();
+                case 2: mostrar("clientes");
                 break;
-                case 3: mostrarMascotas();
+                case 3: mostrar("mascotas");
+                break;
+                case 4: eliminarDatos();
                 break;
                 case 0: 
                     salir = true;
@@ -62,6 +64,7 @@ public class Clinica{
         System.out.println("1: Ingresar como cliente");
         System.out.println("2: Ver clientes");
         System.out.println("3: Ver mascotas");
+        System.out.println("4: Editar datos y archivos");
         System.out.println("0: Salir");
         int opcion = sc.nextInt();
         sc.nextLine();
@@ -97,13 +100,19 @@ public class Clinica{
         //datos mascota
         return new Mascota(dueno.getNombre(), nombreM,sexo,edad,especie,raza);
     }
-    public static void mostrarClientes() {
+    public static void mostrar(String editando) {
         try{
-            Scanner lector = new Scanner(archivoC);
-            System.out.println("Clientes.");
+            Scanner lector = null;
+            int lineas= 0;
+            if(editando.equals("clientes")) lector = new Scanner(archivoC);
+            else if(editando.equals("mascotas")) lector = new Scanner(archivoM);
+            System.out.println("Datos guardados de "+ editando);
             while(lector.hasNextLine()){
                 String linea = lector.nextLine();
-                System.out.println(linea);
+                System.out.print("Linea "+lineas);
+                for(String mostrando: linea.split(";")) System.out.print(" | "+mostrando);
+                System.out.print("\n");
+                lineas++;
             }
             lector.close();
         }
@@ -111,19 +120,91 @@ public class Clinica{
             System.out.println("Error al leer el archivo");
         }
     }
-    public static void mostrarMascotas() {
+    public static void eliminar(String editando, int eliminar) {
         try{
-            Scanner lector = new Scanner(archivoM);
-            System.out.println("Mascotas:");
+            Scanner lector = null;
+            int lineas= 0;
+            String finaltxt = "";
+            if(editando.equals("clientes")) lector = new Scanner(archivoC);
+            else if(editando.equals("mascotas")) lector = new Scanner(archivoM);
             while(lector.hasNextLine()){
                 String linea = lector.nextLine();
-                System.out.println(linea);
+                if(lineas != eliminar) finaltxt+=linea + "\n";
+                lineas++;
             }
+            FileWriter escritor=null;
+            if(editando.equals("clientes")) escritor = new FileWriter(archivoC,false);
+            else if(editando.equals("mascotas")) escritor = new FileWriter(archivoM,false);    
+            escritor.write(finaltxt);
+            escritor.close();
             lector.close();
         }
         catch (FileNotFoundException e){
             System.out.println("Error al leer el archivo");
         }
+        catch(IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    public static void limpiar(String editando) {
+        try{
+            FileWriter escritor=null;
+            if(editando.equals("clientes")) escritor = new FileWriter(archivoC,false);
+            else if(editando.equals("mascotas")) escritor = new FileWriter(archivoM,false);    
+            escritor.write("");
+            escritor.close();
+            System.out.println("Datos de "+editando+" han sido limpiados");
+        }
+        catch (FileNotFoundException e){
+            System.out.println("Error al leer el archivo");
+        }
+        catch(IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    public static void eliminarDatos(){
+        int opcion;
+        do{
+            System.out.println("\nElija una opcion");
+            System.out.println("1: Editar archivos de clientes");
+            System.out.println("2: Editar archivos de mascotas");
+            System.out.println("0: Salir");
+            opcion = sc.nextInt();
+            sc.nextLine();
+            switch(opcion){
+                case 1: editar("clientes");
+                break;
+                case 2: editar("mascotas");
+                break;
+            }
+        }while(opcion!=0);
+    }
+    public static void editar(String editando){
+        int opcion;
+        do{
+            System.out.println("\nElija una opcion");
+            System.out.println("1: eliminar archivo de "+editando);
+            System.out.println("2: eliminar algun dato de "+editando);
+            System.out.println("3: limpiar todos los datos de "+editando);
+            System.out.println("0: Salir");
+            opcion = sc.nextInt();
+            sc.nextLine();
+            switch(opcion){
+                case 1: eliminadorDeArchivo(editando);
+                break;
+                case 2:{
+                    mostrar(editando);
+                    System.out.println("Elija que linea desea eliminar");
+                    eliminar(editando, sc.nextInt());
+                    sc.nextLine();
+                }
+                break;
+                case 3: limpiar(editando);
+                break;
+            }
+        }while(opcion!=0);
     }
     public static File creadorDeArchivo(String nombre){
         File archivo = new File("Clinica/datos/"+ nombre +".txt");;
@@ -136,7 +217,7 @@ public class Clinica{
         }
         return archivo;
     }
-    public static File eleminadorDeArchivo(String nombre){
+    public static File eliminadorDeArchivo(String nombre){
         File archivo = new File("Clinica/datos/"+ nombre +".txt");;
         try{
             if(archivo.delete())System.out.println("Archivo eleminado " + archivo.getName());
