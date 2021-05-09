@@ -22,25 +22,8 @@ public class Clinica{
                         cliente.setMascota(ingresarMascota(cliente), i);
                     }
                     //datos mascota
-                    try{
-                        FileWriter escritorClientes = new FileWriter(archivoC,true);    
-                        escritorClientes.append(cliente.toString());
-                        escritorClientes.close();
-                        System.out.println("ha terminado de escribir " + "clientes");
-                    }
-                    catch(Exception e){
-                        System.out.println("Error escribiendo datos del cliente");
-                    }
-                    for(int i = 0;i < cliente.getCantMascotas(); i++){
-                        try{
-                            FileWriter escritorMascotas = new FileWriter(archivoM,true);
-                            escritorMascotas.append(cliente.getMascota(i).toString());
-                            escritorMascotas.close();
-                            System.out.println("ha terminado de escribir "+ "mascotas");
-                        }catch(Exception e){
-                            System.out.println("Error escribiendo datos de la mascota "+ i);       
-                        }
-                    }
+                    guardar("clientes", cliente.toString());
+                    for(int i = 0;i < cliente.getCantMascotas(); i++) guardar("mascotas", cliente.getMascota(i).toString());      
                     // lectura  
                 break;
                 case 2: mostrar("clientes");
@@ -120,6 +103,19 @@ public class Clinica{
             System.out.println("Error al leer el archivo");
         }
     }
+    public static void guardar(String editando, String texto){
+        try{
+            FileWriter escritor = null;
+            if(editando.equals("clientes")) escritor= new FileWriter(archivoC,true);  
+            else if(editando.equals("mascotas")) escritor=new FileWriter(archivoM,true);
+            escritor.append(texto);
+            escritor.close();
+            System.out.println("ha terminado de escribir en " + editando);
+        }
+        catch(Exception e){
+            System.out.println("Error escribiendo datos de "+editando);
+        }
+    }
     public static void eliminar(String editando, int eliminar) {
         try{
             Scanner lector = null;
@@ -151,7 +147,7 @@ public class Clinica{
         try{
             FileWriter escritor=null;
             if(editando.equals("clientes")) escritor = new FileWriter(archivoC,false);
-            else if(editando.equals("mascotas")) escritor = new FileWriter(archivoM,false);    
+            else if(editando.equals("mascotas")) escritor = new FileWriter(archivoM,false);   
             escritor.write("");
             escritor.close();
             System.out.println("Datos de "+editando+" han sido limpiados");

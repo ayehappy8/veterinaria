@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
-=======
 perro,hembra,4,kiltro,perro;
->>>>>>> Stashed changes
+pejonsio,hombre,32,pez,cado;
+broter,hembra,41,lagarto,gigante;
+culebrin,hembra,31,serpiente,culebra;

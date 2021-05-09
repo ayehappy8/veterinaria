@@ -53,17 +53,16 @@ private String raza;
     }
 
     public String toString() {
-        String n;
-        n = this.nombre;
-        n = n + ",";
-        n= n + this.sexo;
-        n = n + ",";
-        n= n + this.edad;
-        n = n + ",";
-        n= n + this.especie;
-        n = n + ",";
-        n= n + this.raza;
-        n = n + ";\n";
+        String n = this.nombre;
+        n += ",";
+        n += this.sexo;
+        n += ",";
+        n += this.edad;
+        n += ",";
+        n += this.especie;
+        n += ",";
+        n += this.raza;
+        n += ";\n";
 
         return n;
     }
