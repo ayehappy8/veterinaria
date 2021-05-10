@@ -1,10 +1,10 @@
 package Clinica;
 
 public class Persona  {
-    private String nombre;
-    private String apellido;
-    private int telefono;
-    private String email;
+    protected String nombre;
+    protected String apellido;
+    protected int telefono;
+    protected String email;
     public Persona(String nombre, String apellido, int telefono, String email){
         this.nombre = nombre;
         this.apellido = apellido;
