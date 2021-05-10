@@ -358,6 +358,8 @@ public class Clinica{
             System.out.println("1: Editar archivos de clientes");
             System.out.println("2: Editar archivos de mascotas");
             System.out.println("3: Editar archivos de urgencias");
+            System.out.println("4: Editar archivos de horas");
+            System.out.println("5: Editar archivos de urgespecialistasencias");
             System.out.println("0: Salir");
             opcion = sc.nextInt();
             sc.nextLine();
@@ -368,6 +370,9 @@ public class Clinica{
                 break;
                 case 3: editar("urgencias");
                 break;
+                case 4: editar("horas");
+                break;
+                case 5: editar("especialistas");
             }
         }while(opcion!=0);
     }
