@@ -2,3 +2,4 @@ perro,hembra,4,kiltro,perro;
 pejonsio,hombre,32,pez,cado;
 broter,hembra,41,lagarto,gigante;
 culebrin,hembra,31,serpiente,culebra;
+few,sefew,12,few,few;

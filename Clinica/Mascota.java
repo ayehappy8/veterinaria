@@ -7,6 +7,7 @@ private String sexo;
 private int edad;
 private String especie;
 private String raza;
+private Hora hora;
     public Mascota(String dueno, String nombre, String sexo, int edad, String especie, String raza){
         this.dueno = dueno;
         this.nombre = nombre;
@@ -14,6 +15,12 @@ private String raza;
         this.edad = edad;
         this.especie = especie;
         this.raza = raza;
+    }
+    public Hora getHora(){
+        return this.hora;
+    }
+    public void setHora(Hora c){
+        this.hora = c;
     }
     public String getDueno() {
         return this.dueno;
