@@ -3,3 +3,8 @@ pejonsio,hombre,32,pez,cado;
 broter,hembra,41,lagarto,gigante;
 culebrin,hembra,31,serpiente,culebra;
 few,sefew,12,few,few;
+gre,gre,32,gre,gre;
+puto,sidda,21,perro,chino;
+gre,gre,31,gre,gre;
+few,few,1,few,few;
+lgrew,lgew,3,lgre,lgre;

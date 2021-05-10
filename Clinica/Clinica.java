@@ -24,10 +24,11 @@ public class Clinica{
     private static File archivoC = creadorDeArchivo("clientes");
     private static File archivoU = creadorDeArchivo("urgencias");
     private static File archivoE = creadorDeArchivo("especialistas");
+    private static File archivoH = creadorDeArchivo("horas");
     static Scanner sc = new Scanner(System.in);
     private static Ambulancia[] ambulancias = new Ambulancia[5];
     public static void main(String[] args){ 
-        byte[] array = new byte[6];
+        cargarEspecialistas();
         for(int i = 0; i<ambulancias.length; i++){
             Random rand = new Random();
             String newpatente="";
@@ -59,6 +60,7 @@ public class Clinica{
                     //datos mascota
                     guardar("clientes", cliente.toString());
                     for(int i = 0;i < cliente.getCantMascotas(); i++) guardar("mascotas", cliente.getMascota(i).toString());
+                    for(int i = 0;i < cliente.getCantMascotas(); i++) guardar("horas", cliente.getMascota(i).getHora().toString());
                     // lectura  
                 break;
                 case 2: //lamado de urgencia
@@ -72,7 +74,7 @@ public class Clinica{
                     sc.nextLine();
                     System.out.println("Ingrese su ubicación");
                     nueva.setUbicacion(sc.nextLine());
-                    guardar("urgencias", nueva.toString());
+                    //guardar("urgencias", nueva.toString());
                     System.out.println("\nverificando ambulancias disponibles...");
                     for(int i = 0; i < ambulancias.length && nueva.getAtendido().equals("no atendido");i++){
                         if(ambulancias[i].urgencia == null){
@@ -85,35 +87,33 @@ public class Clinica{
                     guardar("urgencias", nueva.toString());
 
                 break;
-                case 3: mostrar("clientes");
+                case 3: menuMostrar();
                 break;
-                case 4: mostrar("mascotas");
+                case 4: eliminarDatos();
                 break;
-                case 5: mostrar("urgencias");
+                case 5: mostrarAmbulancias();
                 break;
-                case 6: eliminarDatos();
-                break;
-                case 7: mostrarAmbulancias();
-                break;
-                case 8:
+                case 6:
                     limpiar("especialistas");
                     for(int i = 0; i<especialistas.length; i++){
                         especialistas[i] = ingresarEspecialista(especialidades[i]);
                         guardar("especialistas", especialistas[i].toString());
                     }
                 break;
-                case 9:
+                case 7:
                     mostrar("especialistas");
                     int linea;
                     do{
-                        System.out.println("Ingrese la linea de especialistas a ingresar");
+                        System.out.println("Ingrese la linea de especialistas a ingresar (solo de 0 a 4)" );
                         linea = sc.nextInt();
                         sc.nextLine();
                     }
-                    while(linea<=0 || linea >=5);
+                    while(linea<0 || linea >=5);
                     especialistas[linea] = ingresarEspecialista(especialidades[linea]);
                     limpiar("especialistas");
-                    for(Especialista guardando:especialistas) guardar("especialistas", guardando.toString());
+                    for(Especialista guardando:especialistas){
+                        if(guardando != null) guardar("especialistas", guardando.toString());
+                    }
 
                 break;
                 case 0: 
@@ -130,16 +130,41 @@ public class Clinica{
         System.out.println("\n Escoja una opción");
         System.out.println("1: Pedir una hora");
         System.out.println("2: Llamado de urgencia");
-        System.out.println("3: Ver clientes");
-        System.out.println("4: Ver mascotas");
-        System.out.println("5: Ver urgencias");
-        System.out.println("6: Editar datos y archivos");
-        System.out.println("7: Ver ambulancias");
-        System.out.println("8: Ingresar especialistas");
+        System.out.println("3: Ver datos guardados");
+        System.out.println("4: Editar datos y archivos");
+        System.out.println("5: Ver ambulancias");
+        System.out.println("6: Ingresar especialistas");
+        System.out.println("7: Ingresar un especialista determinado");
         System.out.println("0: Salir");
         int opcion = sc.nextInt();
         sc.nextLine();
         return opcion;
+    }
+    public static void menuMostrar(){
+        int opcion;
+        do{
+            System.out.println("\nElija una opcion");
+            System.out.println("1: Ver clientes");
+            System.out.println("2: Ver mascotas");
+            System.out.println("3: Ver urgencias");
+            System.out.println("4: Ver especialistas");
+            System.out.println("5: Ver horas");
+            System.out.println("0: Salir");
+            opcion = sc.nextInt();
+            sc.nextLine();
+            switch(opcion){
+                case 1: mostrar("clientes");
+                break;
+                case 2: mostrar("mascotas");
+                break;
+                case 3: mostrar("urgencias");
+                break;
+                case 4: mostrar("especialistas");
+                break;
+                case 5: mostrar("horas");
+                break;
+            }
+        }while(opcion!=0); 
     }
     public static void mostrarAmbulancias(){
         for(Ambulancia mostrando: ambulancias){
@@ -177,19 +202,33 @@ public class Clinica{
         String raza = sc.nextLine();
         System.out.println("Elija el especialista con el que quiere atender a su mascota");
         for(int i = 0; i<especialidades.length; i++) System.out.println((i+1)+": "+especialidades[i]);
-        String esp = especialidades[sc.nextInt()-1];
+        int escogido = sc.nextInt()-1;
+        String esp = especialidades[escogido];
         sc.nextLine();
-        LocalDate hoy = LocalDate.now();
+        LocalDate hoy = LocalDate.now().plusDays(1);
         Date dfinal;
-        /*do{
+        do{
             dfinal = java.sql.Date.valueOf(hoy.plusDays(1));
             hoy=hoy.plusDays(1);
             System.out.println("viendo dia "+ dfinal);
-        }while(dfinal.getDay() == 6 || dfinal.getDay() == 0);
+        }while(dfinal.getDay() == 6 || dfinal.getDay() == 0 && !disponible(dfinal));
         System.out.println("La fecha final es "+ dfinal);
-        Hora hora = new Hora(esp, nombreM, dfinal);
+        Hora hora = new Hora(especialistas[escogido], nombreM, dfinal);
         //datos mascota*/
-        return new Mascota(dueno.getNombre(), nombreM,sexo,edad,especie,raza);
+        return new Mascota(dueno.getNombre(), nombreM,sexo,edad,especie,raza,hora);
+    }
+    public static boolean disponible(Date fecha){
+        try{
+            Scanner lector = new Scanner(archivoH);
+            while(lector.hasNextLine()){
+                String[] revisando = lector.nextLine().split(",");
+                if(!revisando[2].equals(fecha.toString())) return true;
+            }
+        }
+        catch(Exception e){
+            System.out.println("ha ocurrido un error verificando las horas");
+        }
+        return false;
     }
     public static Especialista ingresarEspecialista(String esp){
         System.out.println("ingrese el nombre del veterinario de "+esp);
@@ -211,6 +250,7 @@ public class Clinica{
             else if(editando.equals("mascotas")) lector = new Scanner(archivoM);
             else if(editando.equals("urgencias")) lector = new Scanner(archivoU);
             else if(editando.equals("especialistas")) lector = new Scanner(archivoE);
+            else if(editando.equals("horas")) lector = new Scanner(archivoH);
             System.out.println("Datos guardados de "+ editando);
             while(lector.hasNextLine()){
                 String linea = lector.nextLine();
@@ -232,6 +272,7 @@ public class Clinica{
             else if(editando.equals("mascotas")) escritor=new FileWriter(archivoM,true);
             else if(editando.equals("urgencias")) escritor = new FileWriter(archivoU, true);
             else if(editando.equals("especialistas")) escritor = new FileWriter(archivoE, true);
+            else if(editando.equals("horas")) escritor = new FileWriter(archivoH, true);
             escritor.append(texto);
             escritor.close();
             System.out.println("ha terminado de escribir en " + editando);
@@ -249,6 +290,7 @@ public class Clinica{
             else if(editando.equals("mascotas")) lector = new Scanner(archivoM);
             else if(editando.equals("urgencias")) lector = new Scanner(archivoU);
             else if(editando.equals("especialistas")) lector = new Scanner(archivoE);
+            else if(editando.equals("horas")) lector = new Scanner(archivoH);
             while(lector.hasNextLine()){
                 String linea = lector.nextLine();
                 if(lineas != eliminar) finaltxt+=linea + "\n";
@@ -259,6 +301,7 @@ public class Clinica{
             else if(editando.equals("mascotas")) escritor = new FileWriter(archivoM,false);
             else if(editando.equals("urgencias")) escritor = new FileWriter(archivoU, false);
             else if(editando.equals("especialistas")) escritor = new FileWriter(archivoE, false);
+            else if(editando.equals("horas")) escritor = new FileWriter(archivoH, false);
             escritor.write(finaltxt);
             escritor.close();
             lector.close();

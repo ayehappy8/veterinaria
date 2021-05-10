@@ -1,1 +1,5 @@
-Clinica.Especialista@35bbe5e8Clinica.Especialista@2c8d66b2Clinica.Especialista@5a39699cClinica.Especialista@3cb5cdbaClinica.Especialista@56cbfb61
+Neurolog�a,putaso,terrible,3131,pe@ga;
+Reproducci�n,nose,weon,545454,greg@gre;
+Odontolog�a,ger,gre,31,gre@gre;
+Oncolog�a,gore,kgoer,134,@gthr;
+Cardiolog�a,puta,aweoma,31,gre@gre;

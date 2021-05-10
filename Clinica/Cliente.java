@@ -29,15 +29,15 @@ public class Cliente extends Persona{
     @Override
     public String toString() {
         String n;
-        n = this.getNombre();
+        n = this.nombre;
         n = n + ",";
-        n= n + this.getApellido();
+        n= n + this.apellido;
         n = n + ",";
-        n= n + this.getTelefono();
+        n= n + this.telefono;
         n = n + ",";
         n= n + this.direccion;
         n = n + ",";
-        n= n + this.getEmail();
+        n= n + this.email;
         n = n + ";\n";
         return n;
     }

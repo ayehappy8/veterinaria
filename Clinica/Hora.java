@@ -27,4 +27,13 @@ public class Hora{
     public void setFecha(Date c){
         this.fecha = c;
     }
+    public String toString(){
+        String n = this.veterinario.getNombre();
+        n += ",";
+        n += this.paciente;
+        n += ",";
+        n += this.fecha;
+        n += ";\n";
+        return n;
+    }
 }

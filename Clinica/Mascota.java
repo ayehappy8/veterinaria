@@ -8,13 +8,14 @@ private int edad;
 private String especie;
 private String raza;
 private Hora hora;
-    public Mascota(String dueno, String nombre, String sexo, int edad, String especie, String raza){
+    public Mascota(String dueno, String nombre, String sexo, int edad, String especie, String raza, Hora hora){
         this.dueno = dueno;
         this.nombre = nombre;
         this.sexo = sexo;
         this.edad = edad;
         this.especie = especie;
         this.raza = raza;
+        this.hora = hora;
     }
     public Hora getHora(){
         return this.hora;

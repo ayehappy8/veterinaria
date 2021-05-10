@@ -1,5 +1,5 @@
 package Clinica;
-import java.util.Date;
+
 public class Especialista extends Persona{
     private String especialidad; 
     public Especialista(String especialidad, String nombre, String apellido , int telefono, String email){
@@ -13,17 +13,16 @@ public class Especialista extends Persona{
         this.especialidad = c;
     }
     public String toString(){
-        String n = this.nombre;
+        String n = this.especialidad;
         n += ",";
-        n += this.sexo;
+        n += this.nombre;
         n += ",";
-        n += this.edad;
+        n += this.apellido;
         n += ",";
-        n += this.especie;
+        n += this.telefono;
         n += ",";
-        n += this.raza;
+        n += this.email;
         n += ";\n";
-
         return n;
     }
     /*
