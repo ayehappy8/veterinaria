@@ -51,6 +51,7 @@ public class Clinica{
                     Cliente cliente = ingresarCliente();
                     //datos mascota
                     System.out.println("Ingrese la cantidad de mascotas para ingresar");
+                    System.out.println("Precio por mascota : $25000 (25% descuento por mas 2 mascotas");
                     cliente.CantMascotas(sc.nextInt());
                     sc.nextLine();
                     for(int i = 0; i < cliente.getCantMascotas(); i++){
@@ -61,6 +62,10 @@ public class Clinica{
                     guardar("clientes", cliente.toString());
                     for(int i = 0;i < cliente.getCantMascotas(); i++) guardar("mascotas", cliente.getMascota(i).toString());
                     for(int i = 0;i < cliente.getCantMascotas(); i++) guardar("horas", cliente.getMascota(i).getHora().toString());
+                    int costo = cliente.getCantMascotas()*25000;
+                    if(cliente.getCantMascotas()>1) costo-= costo*0.25;
+                    System.out.println("El precio final será " + costo);
+
                     // lectura  
                 break;
                 case 2: //lamado de urgencia
@@ -331,6 +336,19 @@ public class Clinica{
         catch(IOException e) {
             //TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+    public static void cargarEspecialistas(){
+        try{
+            Scanner lector = new Scanner(archivoE);
+            int lineas = 0;
+            while(lector.hasNextLine()){
+                String[] repartir = lector.nextLine().split(",");
+                especialistas[lineas] = new Especialista(repartir[0],repartir[1],repartir[2],Integer.parseInt(repartir[3]), repartir[4]);
+                lineas++;
+            }
+        }
+        catch(Exception e){
         }
     }
     public static void eliminarDatos(){
